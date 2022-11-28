@@ -48,7 +48,7 @@ let remindersController = {
       if (reminder.id == reminderToFind) {
         reminder.title = reminderData.title;
         reminder.description = reminderData.description;
-        reminder.completed = true ? reminderData.completed === "true" : false
+        reminder.completed = JSON.parse(reminderData.completed)
         console.log("updated")
       }
     })
