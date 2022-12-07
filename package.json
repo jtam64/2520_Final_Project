@@ -16,11 +16,14 @@
   "homepage": "http",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "ejs": "^3.1.8",
+    "ejs": "^2.5.5",
     "express": "^4.14.0",
     "express-ejs-layouts": "^2.2.0",
+    "express-session": "^1.17.3",
     "method-override": "^2.3.7",
-    "mongoose": "^6.7.3",
-    "nodemon": "^2.0.20"
+    "mongoose": "^4.7.7",
+    "nodemon": "^1.11.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   }
 }

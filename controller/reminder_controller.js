@@ -1,4 +1,5 @@
 let database = require("../database");
+let datab = require("../models/userModel"); // use it to implement database connection for each user
 
 let remindersController = {
   list: (req, res) => {
@@ -41,31 +42,27 @@ let remindersController = {
   },
 
   update: (req, res) => {
-    // implement this code
-    let reminderData = req.body
     let reminderToFind = req.params.id;
-    database.cindy.reminders.forEach(reminder => {
-      if (reminder.id == reminderToFind) {
-        reminder.title = reminderData.title;
-        reminder.description = reminderData.description;
-        reminder.completed = JSON.parse(reminderData.completed)
-        console.log("updated")
-      }
-    })
-    
-    res.redirect("/reminders")
+    let searchResult = database.cindy.reminders.find(function (reminder) {
+      return reminder.id == reminderToFind;
+    });
+    if (searchResult != undefined) {
+      searchResult.title = req.body.title;
+      searchResult.description = req.body.description;
+      searchResult.completed = JSON.parse(req.body.completed);
+      res.redirect("/reminders");
+    } else {
+      res.render("reminder/index", { reminders: database.cindy.reminders });
+    }
   },
 
   delete: (req, res) => {
-    // Implement this code
-    let reminderToFind = req.params.id
-    database.cindy.reminders.forEach((reminder, i) => {
-      if (reminder.id == reminderToFind) {
-        database.cindy.reminders.splice(i)
-        console.log("deleted")
-      }
-    })
-    res.redirect("/reminders")
+    let reminderToFind = req.params.id;
+    let searchResult = database.cindy.reminders.filter(function (reminder) {
+      return reminder.id != reminderToFind;
+    });
+    database.cindy.reminders = searchResult;
+    res.redirect("/reminders");
   },
 };
 
